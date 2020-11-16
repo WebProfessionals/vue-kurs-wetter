@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import { mapFields } from 'vuex-map-fields';
 
   export default {
@@ -31,9 +30,6 @@
       forecastTemperature () {
         return this.forecast.main.temp + ' Grad Celcius'
       },
-      apiUrl () {
-        return 'https://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&units=metric&lang=de&appid=' + process.env.VUE_APP_WEATHER_API_KEY
-      },
       backgroundCheck () {
         if (this.forecast.main && this.forecast.main.temp > 10) {
           return true
@@ -44,16 +40,9 @@
     },
     methods: {
       fetchWeather() {
-        let self = this
-        axios.get(this.apiUrl)
-                .then(function (response) {
-                  // handle success
-                  self.forecast = response.data;
-                })
-                .catch(function (error) {
-                  // handle error
-                  console.log(error);
-                })
+        this.$store.dispatch('fetchWeather', this.city).then(response => {
+          this.forecast = response
+        })
       }
     }
 

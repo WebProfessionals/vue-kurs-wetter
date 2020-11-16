@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getField, updateField } from 'vuex-map-fields';
+import axios from "axios";
 
 Vue.use(Vuex)
 
@@ -21,5 +22,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    fetchWeather(state, payload) {
+      return axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + payload + '&units=metric&lang=de&appid=' + process.env.VUE_APP_WEATHER_API_KEY)
+          .then(function (response) {
+            return response.data
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+    }
   }
 })
