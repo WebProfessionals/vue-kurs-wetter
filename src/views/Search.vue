@@ -9,23 +9,17 @@
       {{forecastTemperature}}
     </p>
 
-    <weather-item city="Bern"></weather-item>
-    <weather-item city="London"></weather-item>
-    <weather-item city="Milano"></weather-item>
-    <weather-item city="Tokyo"></weather-item>
 
   </div>
 </template>
 
 <script>
   import axios from 'axios'
-  import WeatherItem from '@/components/WeatherItem'
   import { mapFields } from 'vuex-map-fields';
 
   export default {
-    name: 'Home',
+    name: 'Search',
     components: {
-      WeatherItem
     },
     data () {
       return {

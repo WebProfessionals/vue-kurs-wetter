@@ -1,6 +1,11 @@
 <template>
   <div id="app">
+    <nav>
+      <router-link to="/search">Suche nach Ortschaft</router-link> - <router-link to="/">Alles anzeigen</router-link>
+    </nav>
+
     <router-view/>
+
   </div>
 </template>
 
