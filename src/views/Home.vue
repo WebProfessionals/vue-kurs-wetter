@@ -9,14 +9,26 @@
       {{forecastTemperature}}
     </p>
 
+    <hr>
+
+    <weather-item city="Bern"></weather-item>
+    <weather-item city="London"></weather-item>
+    <weather-item city="Milano"></weather-item>
+    <weather-item city="Tokyo"></weather-item>
+
+
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import WeatherItem from '@/components/WeatherItem'
 
   export default {
     name: 'Home',
+    components: {
+      WeatherItem
+    },
     data () {
       return {
         city: '',
