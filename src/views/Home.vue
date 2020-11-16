@@ -1,14 +1,13 @@
 <template>
-  <div class="home">
+  <div class="home" v-bind:class="{ hot: backgroundCheck}">
 
-    <input v-model="city">
-    <button @click="fetchWeather">Suche</button>
+    <input v-model="city" v-on:keyup.enter="fetchWeather">
+
     <br>
     <p
       v-if="forecast.main">
       {{forecastTemperature}}
     </p>
-
 
   </div>
 </template>
@@ -29,13 +28,19 @@
         return this.forecast.main.temp + ' Grad Celcius'
       },
       apiUrl () {
-        return 'https://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&units=metric&lang=de&appid=67250520d949de08b0b5023929e306b9'
+        return 'https://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&units=metric&lang=de&appid=' + process.env.VUE_APP_WEATHER_API_KEY
+      },
+      backgroundCheck () {
+        if (this.forecast.main && this.forecast.main.temp > 10) {
+          return true
+        } else {
+          return false
+        }
       }
     },
     methods: {
       fetchWeather() {
         let self = this
-        console.log('Wetter wird ausgegeben')
         axios.get(this.apiUrl)
                 .then(function (response) {
                   // handle success
@@ -50,3 +55,17 @@
 
   }
 </script>
+<style>
+  .home {
+    height: 100vh;
+    background-attachment: fixed;
+    background-image: url('~@/assets/cold_bg.jpg');
+    background-repeat: no-repeat;
+  }
+
+  .hot {
+    background-attachment: fixed;
+    background-image: url('~@/assets/warm_bg.jpg');
+    background-repeat: no-repeat;
+  }
+</style>
