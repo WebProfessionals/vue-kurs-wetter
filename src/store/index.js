@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchWeather(state, payload) {
-      return axios.get('https://api.openweathermap.org/data/2.5/weather?q=' + payload + '&units=metric&lang=de&appid=' + process.env.VUE_APP_WEATHER_API_KEY)
+      return axios.get(process.env.VUE_APP_WEATHER_API_URL + '/weather?q=' + payload + '&units=metric&lang=de&appid=' + process.env.VUE_APP_WEATHER_API_KEY)
           .then(function (response) {
             return response.data
           })

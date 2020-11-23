@@ -1,22 +1,7 @@
 <template>
   <div class="home" v-bind:class="{ hot: backgroundCheck}">
 
-    <input v-model="city" v-on:keyup.enter="fetchWeather">
-
-    <br>
-    <p
-      v-if="forecast.main">
-      {{forecastTemperature}}
-    </p>
-
-    <weather-item city="Bern"></weather-item>
-    <weather-item city="London"></weather-item>
-    <weather-item city="Milano"></weather-item>
-    <weather-item city="Tokyo"></weather-item>
-
-    <hr>
-    <button @click="goNewYork">New York</button>
-
+    <weather-item :city="$route.params.city"></weather-item>
 
   </div>
 </template>
@@ -26,7 +11,7 @@
   import { mapFields } from 'vuex-map-fields';
 
   export default {
-    name: 'Home',
+    name: 'City',
     components: {
       WeatherItem
     },
@@ -53,9 +38,6 @@
         this.$store.dispatch('fetchWeather', this.city).then(response => {
           this.forecast = response
         })
-      },
-      goNewYork() {
-        this.$router.push( { name: 'City', params: { city: 'New York' } } )
       }
     }
 

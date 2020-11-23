@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{city}}: {{forecastTemperature}}
+        {{forecastCity}}: {{forecastTemperature}}
     </div>
 </template>
 
@@ -22,6 +22,13 @@
             return 'unbekannt'
           }
         },
+        forecastCity () {
+          if (this.forecast.name) {
+            return this.forecast.name
+          } else {
+            return 'unbekannt'
+          }
+        }
       },
       mounted: function () {
         this.fetchWeather()
