@@ -1,44 +1,37 @@
 <template>
   <div class="home" v-bind:class="{ hot: backgroundCheck}">
 
-    <weather-item :city="$route.params.city"></weather-item>
+    <weather-store></weather-store>
 
   </div>
 </template>
 
 <script>
-  import WeatherItem from '@/components/WeatherItem'
-  import { mapFields } from 'vuex-map-fields';
+  import WeatherStore from '@/components/WeatherStore'
+  import {mapGetters} from "vuex";
 
   export default {
     name: 'City',
     components: {
-      WeatherItem
+      WeatherStore
     },
     data () {
       return {
-        forecast: {}
       }
     },
     computed: {
-      ...mapFields(['city']),
-      forecastTemperature () {
-        return this.forecast.main.temp + ' Grad Celcius'
-      },
       backgroundCheck () {
         if (this.forecast.main && this.forecast.main.temp > 10) {
           return true
         } else {
           return false
         }
-      }
+      },
+      ...mapGetters({
+        forecast: "currentForecast"
+      }),
     },
     methods: {
-      fetchWeather() {
-        this.$store.dispatch('fetchWeather', this.city).then(response => {
-          this.forecast = response
-        })
-      }
     }
 
   }

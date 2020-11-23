@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import City from '../views/City.vue'
 import Search from '../views/Search.vue'
-
+import store from '../store'
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,8 +23,13 @@ const routes = [
     name: 'City',
     component: City,
     beforeEnter: (to, from, next) => {
-      console.log('City View')
-      next()
+      store.dispatch('fetchWeatherForStore', to.params.city).then(response => {
+        console.log(response)
+        next()
+      }).catch(err => {
+        console.log(err)
+      })
+
     }
   }
 ]
@@ -35,10 +40,12 @@ const router = new VueRouter({
   routes
 })
 
+/*
 router.beforeEach((to, from, next) => {
   console.log(from)
   console.log(to)
   next()
 })
+*/
 
 export default router
