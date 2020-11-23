@@ -3,12 +3,16 @@
 
     <weather-store></weather-store>
 
+    <hr>
+    <router-link to="/city/Basel">Basel</router-link>
+
   </div>
 </template>
 
 <script>
   import WeatherStore from '@/components/WeatherStore'
   import {mapGetters} from "vuex";
+  import store from '../store'
 
   export default {
     name: 'City',
@@ -32,6 +36,15 @@
       }),
     },
     methods: {
+    },
+    beforeRouteUpdate: (to, from, next) => {
+      store.dispatch('fetchWeatherForStore', to.params.city).then(response => {
+        console.log(response)
+        next()
+      }).catch(err => {
+        console.log(err)
+      })
+
     }
 
   }
