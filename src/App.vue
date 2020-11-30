@@ -4,7 +4,7 @@
       app
       >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>Vue.JS Kurs: Wetter-App</v-toolbar-title>
+      <v-toolbar-title>Vue.JS Kurs: Meine Wetter-App</v-toolbar-title>
     </v-app-bar>
     <v-main v-bind:class="backgroundImage">
       <router-view/>
