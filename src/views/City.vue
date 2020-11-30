@@ -1,12 +1,23 @@
 <template>
-  <div class="home" v-bind:class="{ hot: backgroundCheck}">
 
-    <weather-store></weather-store>
+  <v-container>
+    <v-row>
 
-    <hr>
-    <router-link to="/city/Basel">Basel</router-link>
+      <v-col>
 
-  </div>
+        <weather-store></weather-store>
+
+        <v-list class="mt-5">
+          <v-list-item to="/city/grabs">Grabs</v-list-item>
+          <v-list-item to="/city/kairo">Kairo</v-list-item>
+          <v-list-item to="/city/new%20york">New York</v-list-item>
+        </v-list>
+
+      </v-col>
+
+    </v-row>
+  </v-container>
+
 </template>
 
 <script>
@@ -24,13 +35,6 @@
       }
     },
     computed: {
-      backgroundCheck () {
-        if (this.forecast.main && this.forecast.main.temp > 10) {
-          return true
-        } else {
-          return false
-        }
-      },
       ...mapGetters({
         forecast: "currentForecast"
       }),
@@ -51,7 +55,6 @@
 </script>
 <style>
   .home {
-    height: 100vh;
     background-attachment: fixed;
     background-image: url('~@/assets/cold_bg.jpg');
     background-repeat: no-repeat;

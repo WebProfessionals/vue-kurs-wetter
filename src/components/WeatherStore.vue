@@ -1,8 +1,10 @@
 <template>
-    <div>
-        aktuelles Wetter im vuex Store:
-        {{forecastCity}}: {{forecastTemperature}}
-    </div>
+    <v-card>
+        <v-card-title>{{forecastCity}}</v-card-title>
+        <v-card-text>
+            Aktuelle Temperatur: {{forecastTemperature}}
+        </v-card-text>
+    </v-card>
 </template>
 
 <script>

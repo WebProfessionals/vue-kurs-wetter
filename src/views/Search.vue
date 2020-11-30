@@ -50,7 +50,6 @@
 </script>
 <style>
   .home {
-    height: 100vh;
     background-attachment: fixed;
     background-image: url('~@/assets/cold_bg.jpg');
     background-repeat: no-repeat;

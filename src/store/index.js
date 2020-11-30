@@ -17,6 +17,13 @@ export default new Vuex.Store({
     },
     currentForecast: state => {
       return state.forecast
+    },
+    backgroundImage: state => {
+      if (state.forecast.main && state.forecast.main.temp > 10) {
+        return 'hot'
+      } else {
+        return 'cold'
+      }
     }
   },
   mutations: {

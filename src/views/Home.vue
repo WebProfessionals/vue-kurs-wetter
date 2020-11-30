@@ -1,77 +1,57 @@
 <template>
-  <div class="home" v-bind:class="{ hot: backgroundCheck}">
 
-    <input v-model="city" v-on:keyup.enter="fetchWeather">
+  <v-container>
+    <v-row>
 
-    <br>
-    <p
-      v-if="forecast.main">
-      {{forecastTemperature}}
-    </p>
+      <v-col>
 
-    <weather-item city="Bern"></weather-item>
-    <weather-item city="London"></weather-item>
-    <weather-item city="Milano"></weather-item>
-    <weather-item city="Tokyo"></weather-item>
+        <v-text-field v-model="city" v-on:keyup.enter="fetchWeather"></v-text-field>
 
-    <hr>
-    <button @click="goNewYork">New York</button>
+        <weather-store></weather-store>
 
+        <v-list class="mt-5">
+          <v-list-item to="/city/grabs">Grabs</v-list-item>
+          <v-list-item to="/city/kairo">Kairo</v-list-item>
+          <v-list-item to="/city/new%20york">New York</v-list-item>
+        </v-list>
 
-  </div>
+        <br>
+        <v-btn @click="goCity('New York')">New York</v-btn>
+        <v-btn @click="goCity('Edinburgh')">Edinburgh</v-btn>
+
+      </v-col>
+
+    </v-row>
+  </v-container>
+
 </template>
 
 <script>
-  import WeatherItem from '@/components/WeatherItem'
-  import { mapFields } from 'vuex-map-fields';
 
+  import WeatherStore from '@/components/WeatherStore'
   export default {
     name: 'Home',
     components: {
-      WeatherItem
+      WeatherStore
     },
     data () {
       return {
-        forecast: {}
+        city: ''
       }
     },
     computed: {
-      ...mapFields(['city']),
-      forecastTemperature () {
-        return this.forecast.main.temp + ' Grad Celcius'
-      },
-      backgroundCheck () {
-        if (this.forecast.main && this.forecast.main.temp > 10) {
-          return true
-        } else {
-          return false
-        }
-      }
     },
     methods: {
       fetchWeather() {
-        this.$store.dispatch('fetchWeather', this.city).then(response => {
-          this.forecast = response
-        })
+        this.$store.dispatch('fetchWeatherForStore', this.city)
       },
-      goNewYork() {
-        this.$router.push( { name: 'City', params: { city: 'New York' } } )
+      goCity(city) {
+        this.$router.push( { name: 'City', params: { city: city } } )
       }
     }
 
   }
 </script>
 <style>
-  .home {
-    height: 100vh;
-    background-attachment: fixed;
-    background-image: url('~@/assets/cold_bg.jpg');
-    background-repeat: no-repeat;
-  }
 
-  .hot {
-    background-attachment: fixed;
-    background-image: url('~@/assets/warm_bg.jpg');
-    background-repeat: no-repeat;
-  }
 </style>
